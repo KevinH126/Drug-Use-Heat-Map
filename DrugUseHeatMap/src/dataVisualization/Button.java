@@ -14,15 +14,15 @@ public class Button {
 	
 	public Button(HeatMap parent, int x, int y, int size, String name, String shape, String type, boolean pressed) {
 		this.parent = parent;
-		this.size = size;
+		this.size = (int) (((HeatMap) parent).getScale() * size);
 		this.name = name;
 		this.shape = shape;
 		if(shape.equals("Circle")) {
-			this.x = x+size/2;
-			this.y = y+size/2;
+			this.x = ((int) (((HeatMap) parent).getScale() * x))+this.size/2;
+			this.y = ((int) (((HeatMap) parent).getScale() * y))+this.size/2;
 		}else {
-			this.x = x;
-			this.y = y;
+			this.x = (int) (((HeatMap) parent).getScale() * x);
+			this.y = (int) (((HeatMap) parent).getScale() * y);
 		}
 		
 		this.type = type;
@@ -72,7 +72,9 @@ public class Button {
 			parent.rect(x+5, y+5, size-10, size-10);
 			parent.fill(255);
 		}
+		parent.fill(0);
 		parent.text(name, x+size/2, y-10);
+		parent.fill(255);
 	}
 	
 	public void drawCircle() {
@@ -82,7 +84,9 @@ public class Button {
 			parent.ellipse(x, y, size-10, size-10);
 			parent.fill(255);
 		}
+		parent.fill(0);
 		parent.text(name, x, (y-size/2) - 8);
+		parent.fill(255);
 	}
 	
 	public void clearClick() {

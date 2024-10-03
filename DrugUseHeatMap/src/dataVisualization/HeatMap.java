@@ -21,6 +21,7 @@ public class HeatMap extends PApplet{
 	private File data;
 	private Slider slider;
 	private Button[] ageButtons;
+	private float scale;
 	
 	private final int BOTTOM_PIXEL = 1251;
 	private final int RIGHT_PIXEL = 1900;
@@ -35,6 +36,7 @@ public class HeatMap extends PApplet{
 	
 	public void setup() {
 		year = 2002;
+		scale = width/1920.0f;
 		data = new File("data/drugs.csv");
 		slider = new Slider(this, 1500, 960, 400, 100, "Year", 2002, 2018);
 		slider.setValue(2002);
@@ -51,12 +53,13 @@ public class HeatMap extends PApplet{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		codedMap.resize(1500, 995);
+		codedMap.resize((int) (scale*1500), (int) (scale*995));
 	}
 	
 	public void draw() {
 		background(144, 215, 253);
 		image(codedMap, 0, 0);	
+		rect((int) (scale*1480), 0, width - ((int) (scale*1480)), height);
 		text(mouseX, 50, 50);
 		text(mouseY, 50, 100);
 		
@@ -68,7 +71,6 @@ public class HeatMap extends PApplet{
 				button.draw();
 		}
 		slider.draw();
-		line(1480, 0, 1480, 1080);
 	}
 	
 	public void loadMap() {
@@ -79,7 +81,7 @@ public class HeatMap extends PApplet{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		codedMap.resize(1500, 995);
+		codedMap.resize((int) (scale*1500), (int) (scale*995));
 	}
 	
 	public void mouseClicked() {
@@ -306,4 +308,6 @@ public class HeatMap extends PApplet{
 			}
 		}
 	}
+
+	public float getScale(){ return scale;}
 }

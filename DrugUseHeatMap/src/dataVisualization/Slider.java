@@ -21,21 +21,21 @@ public class Slider {
 
 	public Slider(PApplet parent, int x, int y, int width, int height, String name, int lowerBound, int upperBound) {
 		this.parent = parent;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.x = (int) (((HeatMap) parent).getScale() * x);
+		this.y = (int) (((HeatMap) parent).getScale() * y);
+		this.width = (int) (((HeatMap) parent).getScale() * width);
+		this.height = (int) (((HeatMap) parent).getScale() * height);
 		this.name = name;
 		this.upperBound = upperBound;
 
-		lineLength = width - 10;
+		lineLength = this.width - 10;
 
 
-		sliderX = x + 5 + lineLength;
+		sliderX = this.x + 5 + lineLength;
 
 		sliderWidth = 10;
 
-		sliderY =  y + height/2 - 10;
+		sliderY =  this.y + this.height/2 - 10;
 
 		sliderHeight = 20;
 		this.lowerBound = lowerBound;
